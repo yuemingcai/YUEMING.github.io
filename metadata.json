@@ -1,0 +1,7 @@
+{
+  "name": "Copy of CAIRUILIN STUDIO Official Website",
+  "description": "Professional research and trade insights platform powered by AI.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
