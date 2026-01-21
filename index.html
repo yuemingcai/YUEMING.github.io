@@ -4,51 +4,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO 기본 메타 태그 -->
-    <title>CAIRUILIN STUDIO | Global Business Insights</title>
-    <meta name="description" content="데이터 기반의 글로벌 비즈니스 인사이트와 실시간 무역 뉴스를 제공하는 CAIRUILIN STUDIO입니다.">
-    <meta name="keywords" content="비즈니스 리서치, 무역 뉴스, 데이터 분석, AI 리서치, CAIRUILIN">
-    <meta name="author" content="CAIRUILIN STUDIO">
-    
-    <!-- SNS 공유용 Open Graph 태그 -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="CAIRUILIN STUDIO - Crack the Case">
-    <meta property="og:description" content="글로벌 무역 데이터와 비즈니스 분석을 한곳에서 확인하세요.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop">
-    <meta property="og:url" content="https://your-domain.com">
-
+    <title>CAIRUILIN STUDIO | AI Research</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #e2e8f0; overflow-x: hidden; }
         
-        /* 스크롤바 커스텀 (브랜드 아이덴티티 반영) */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; border: 2px solid #020617; }
-        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.3); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
 
-        /* 부드러운 스크롤 애니메이션 보정 */
-        html { scroll-behavior: smooth; }
+        .chat-container { height: 65vh; transition: all 0.5s ease; }
+        .mode-transition { transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message-anim { animation: fadeIn 0.4s ease forwards; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: rgba(0,0,0,0.2); border-radius: 0.75rem; overflow: hidden; }
+        th { background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-weight: 900; text-transform: uppercase; font-size: 0.75rem; padding: 0.75rem 1rem; text-align: left; }
+        td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.875rem; }
     </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="antialiased">
 
-<script type="importmap">
+    <!-- Header / Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 py-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <span class="text-2xl font-black tracking-tighter italic text-white">
+                CAIRUILIN<span class="text-blue-500 ml-1">STUDIO</span>
+            </span>
+            <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <a href="#" class="hover:text-blue-500 transition-colors">Platform</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">Intelligence</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">Network</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-10">
+        
+        <!-- Background Elements -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,58,138,0.1),transparent_70%)]"></div>
+        </div>
+
+        <div id="hero-section" class="w-full max-w-7xl flex flex-col items-center mode-transition">
+            
+            <!-- Branding Area -->
+            <div id="branding" class="text-center mb-12 mode-transition">
+                <h1 id="main-title" class="text-5xl sm:text-8xl font-black text-white tracking-tighter uppercase italic leading-none mb-4">
+                    CRACK THE <span class="text-blue-500">CASE</span>
+                </h1>
+                <p id="sub-title" class="text-slate-500 text-xs sm:text-sm font-bold uppercase tracking-[0.3em]">
+                    Strategic AI Research & Intelligence
+                </p>
+            </div>
+
+            <!-- Search / Chat Container -->
+            <div id="interaction-container" class="w-full max-w-3xl mode-transition">
+                
+                <!-- Initial Search Mode UI -->
+                <div id="initial-ui" class="w-full">
+                    <form id="search-form" class="relative group">
+                        <input id="initial-input" type="text" placeholder="조사하고 싶은 비즈니스 주제를 입력하세요..." 
+                               class="w-full px-8 py-6 sm:py-8 rounded-[2.5rem] bg-white/5 backdrop-blur-3xl border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg shadow-2xl">
+                        <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-bolt text-xl"></i>
+                        </button>
+                    </form>
+                    <div class="flex flex-wrap justify-center gap-3 mt-8">
+                        <button onclick="quickSearch('글로벌 반도체 시장 점유율 표')" class="px-5 py-2.5 rounded-full border border-white/5 bg-white/5 text-slate-400 text-[10px] font-black uppercase hover:bg-white/10 hover:text-white transition-all">반도체 시장</button>
+                        <button onclick="quickSearch('2025 무역 경제 전망')" class="px-5 py-2.5 rounded-full border border-white/5 bg-white/5 text-slate-400 text-[10px] font-black uppercase hover:bg-white/10 hover:text-white transition-all">경제 전망</button>
+                        <button onclick="quickSearch('전기차 배터리 기술 순위')" class="px-5 py-2.5 rounded-full border border-white/5 bg-white/5 text-slate-400 text-[10px] font-black uppercase hover:bg-white/10 hover:text-white transition-all">EV 테크</button>
+                    </div>
+                </div>
+
+                <!-- Chat Mode UI (Hidden initially) -->
+                <div id="chat-ui" class="hidden w-full flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto h-[75vh]">
+                    <!-- Chat Area -->
+                    <div class="flex flex-col flex-grow bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden">
+                        <div id="chat-messages" class="flex-grow overflow-y-auto p-6 sm:p-10 space-y-8 custom-scrollbar">
+                            <!-- Messages will appear here -->
+                        </div>
+                        <div class="p-6 border-t border-white/5 bg-slate-900/60">
+                            <form id="chat-form" class="relative">
+                                <input id="chat-input" type="text" placeholder="추가 질문을 입력하세요..." 
+                                       class="w-full px-8 py-5 rounded-[2rem] bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-500 text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Sidebar Area -->
+                    <div class="w-full lg:w-72 shrink-0 space-y-6 flex flex-col">
+                        <div class="flex-grow p-6 rounded-[2.5rem] bg-slate-900/60 border border-white/5 flex flex-col overflow-hidden">
+                            <h3 class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-link"></i> Sources
+                            </h3>
+                            <div id="source-list" class="space-y-3 overflow-y-auto custom-scrollbar flex-grow pr-2 text-xs">
+                                <!-- Sources will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
     "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
-</head>
-<body class="bg-slate-950 text-slate-200 antialiased">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module">
+        import { GoogleGenAI } from "@google/genai";
+
+        let chatSession = null;
+        let hasSearched = false;
+        const apiKey = "YOUR_API_KEY_OR_PROCESS_ENV"; // 실제 배포시 환경변수 process.env.API_KEY 사용
+
+        const initialUI = document.getElementById('initial-ui');
+        const chatUI = document.getElementById('chat-ui');
+        const branding = document.getElementById('branding');
+        const mainTitle = document.getElementById('main-title');
+        const interactionContainer = document.getElementById('interaction-container');
+        const chatMessages = document.getElementById('chat-messages');
+        const sourceList = document.getElementById('source-list');
+
+        async function initChat(query) {
+            if (hasSearched) return;
+            hasSearched = true;
+
+            // UI Mode Transition
+            initialUI.classList.add('hidden');
+            chatUI.classList.remove('hidden');
+            branding.classList.replace('mb-12', 'mb-4');
+            mainTitle.classList.replace('text-5xl', 'text-xl');
+            mainTitle.classList.replace('sm:text-8xl', 'sm:text-2xl');
+            document.getElementById('sub-title').classList.add('hidden');
+            interactionContainer.classList.replace('max-w-3xl', 'max-w-6xl');
+
+            const ai = new GoogleGenAI({ apiKey: window.process?.env?.API_KEY || "" });
+            chatSession = ai.chats.create({
+                model: 'gemini-3-flash-preview',
+                config: {
+                    systemInstruction: "You are CAIRUILIN STUDIO's AI Research Lead. Use professional data. Use Markdown tables for comparisons. Use Google Search for facts. Always link to sources.",
+                    tools: [{ googleSearch: {} }]
+                }
+            });
+        }
+
+        function formatContent(text) {
+            const lines = text.split('\n');
+            let html = '';
+            let inTable = false;
+            
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith('|')) {
+                    if (trimmed.includes('---')) return;
+                    if (!inTable) { html += '<table><tbody>'; inTable = true; }
+                    const cells = trimmed.split('|').filter(c => c.trim() !== '' || (trimmed.indexOf(c) > 0 && trimmed.indexOf(c) < trimmed.length - 1));
+                    const isHeader = !html.includes('</td>'); 
+                    html += `<tr class="${isHeader ? 'bg-blue-600/10' : ''}">`;
+                    cells.forEach(c => {
+                        html += isHeader ? `<th>${c.trim()}</th>` : `<td>${c.trim()}</td>`;
+                    });
+                    html += '</tr>';
+                } else {
+                    if (inTable) { html += '</tbody></table>'; inTable = false; }
+                    if (trimmed) html += `<p class="mb-3">${trimmed.replace(/\*\*/g, '')}</p>`;
+                }
+            });
+            if (inTable) html += '</tbody></table>';
+            return html;
+        }
+
+        function addMessage(role, text, metadata = null) {
+            const div = document.createElement('div');
+            div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'} message-anim`;
+            const innerDiv = document.createElement('div');
+            innerDiv.className = `max-w-[90%] p-6 rounded-[2rem] ${role === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-none'}`;
+            innerDiv.innerHTML = formatContent(text);
+            div.appendChild(innerDiv);
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (metadata && metadata.groundingChunks) {
+                metadata.groundingChunks.filter(c => c.web).forEach(c => {
+                    const s = document.createElement('a');
+                    s.href = c.web.uri;
+                    s.target = "_blank";
+                    s.className = "block p-3 rounded-lg bg-white/5 border border-white/5 hover:border-blue-500/50 mb-2 transition-all truncate";
+                    s.innerHTML = `<span class="font-bold block truncate">${c.web.title}</span><span class="opacity-40 text-[9px] uppercase">${new URL(c.web.uri).hostname}</span>`;
+                    sourceList.prepend(s);
+                });
+            }
+        }
+
+        async function handleAction(query) {
+            if (!query.trim()) return;
+            await initChat(query);
+            addMessage('user', query);
+            
+            // Loading indicator
+            const loading = document.createElement('div');
+            loading.className = 'flex justify-start';
+            loading.id = 'temp-loading';
+            loading.innerHTML = '<div class="bg-white/5 p-6 rounded-[2rem] rounded-tl-none flex gap-2"><div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div><div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div></div>';
+            chatMessages.appendChild(loading);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const result = await chatSession.sendMessage({ message: query });
+                document.getElementById('temp-loading').remove();
+                addMessage('model', result.text, result.candidates?.[0]?.groundingMetadata);
+            } catch (e) {
+                document.getElementById('temp-loading').remove();
+                addMessage('model', '오류가 발생했습니다. 다시 시도해 주세요.');
+            }
+        }
+
+        document.getElementById('search-form').onsubmit = (e) => {
+            e.preventDefault();
+            handleAction(document.getElementById('initial-input').value);
+        };
+
+        document.getElementById('chat-form').onsubmit = (e) => {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const val = input.value;
+            input.value = '';
+            handleAction(val);
+        };
+
+        window.quickSearch = (q) => handleAction(q);
+
+    </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
